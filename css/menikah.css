@@ -124,7 +124,7 @@ body {
   letter-spacing: 1px;
 }
 
-.hero .tempatwaktu {
+.hero .venue-time {
   font-family: "Inter", sans-serif;
   font-weight: 400;
   font-size: clamp(1rem, 2.5vw, 1.25rem);
@@ -255,7 +255,7 @@ body {
   );
 }
 
-.nama-lengkap {
+.full-name {
   font-family: "Dancing Script", cursive;
   font-weight: 700;
   font-size: clamp(2.5rem, 6vw, 4rem);
@@ -283,7 +283,7 @@ body {
   text-align: center;
 }
 
-.waktu {
+.event-time {
   font-family: "Playfair Display", serif;
   font-size: 1.5rem;
   font-weight: 400;
@@ -292,7 +292,7 @@ body {
   margin: 1rem 0;
 }
 
-.tanggal-angka {
+.date-number {
   font-family: "Playfair Display", serif;
   font-weight: 900;
   font-size: clamp(3rem, 8vw, 6rem);
@@ -302,7 +302,7 @@ body {
   margin: 1rem 0;
 }
 
-.tempat {
+.venue {
   font-family: "Inter", sans-serif;
   font-size: 1.25rem;
   font-weight: 400;
@@ -387,7 +387,7 @@ body {
 }
 
 /* Photo Gallery - Sophisticated Layout */
-.foto-item {
+.photo-item {
   border-radius: 0;
   overflow: hidden;
   position: relative;
@@ -396,12 +396,12 @@ body {
   margin-bottom: 2rem;
 }
 
-.foto-item:hover {
+.photo-item:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 40px var(--shadow-medium);
 }
 
-.foto-item::after {
+.photo-item::after {
   content: "";
   position: absolute;
   top: 0;
@@ -418,16 +418,16 @@ body {
   transition: opacity 0.3s ease;
 }
 
-.foto-item:hover::after {
+.photo-item:hover::after {
   opacity: 0.6;
 }
 
-.foto1,
-.foto2,
-.foto3,
-.foto4,
-.foto5,
-.foto6 {
+.photo1,
+.photo2,
+.photo3,
+.photo4,
+.photo5,
+.photo6 {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -435,7 +435,7 @@ body {
   position: relative;
 }
 
-.title-foto {
+.photo-title {
   font-family: "Playfair Display", serif;
   font-size: 1.5rem;
   font-weight: 700;
@@ -446,7 +446,7 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.subtitle-foto {
+.photo-subtitle {
   font-family: "Inter", sans-serif;
   font-size: 1rem;
   font-weight: 400;
@@ -578,7 +578,7 @@ body {
     padding: 1rem;
   }
 
-  .foto-item {
+  .photo-item {
     min-height: 20rem;
   }
 
@@ -662,7 +662,7 @@ body {
 }
 
 /* Enhanced Visual Hierarchy */
-.section-color.pertanyaan {
+.section-color.inquiry {
   background: linear-gradient(
     135deg,
     var(--secondary-taupe) 0%,
@@ -672,12 +672,12 @@ body {
   padding: 5rem 2rem;
 }
 
-.section-color.pertanyaan .title,
-.section-color.pertanyaan .subtitle {
+.section-color.inquiry .title,
+.section-color.inquiry .subtitle {
   color: var(--soft-white);
 }
 
-.section-color.pertanyaan i {
+.section-color.inquiry i {
   font-size: 3rem;
   color: var(--accent-gold);
   margin-bottom: 2rem;
