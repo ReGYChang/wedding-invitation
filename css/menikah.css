@@ -71,7 +71,7 @@ body {
       rgba(211, 205, 196, 0.15),
       rgba(167, 164, 156, 0.25)
     ),
-    var(--deep-charcoal) url("../image/hero.jpg") no-repeat center center;
+    var(--deep-charcoal) url("../image/hero2.jpg") no-repeat center center;
   background-attachment: fixed;
   background-size: cover;
   color: var(--soft-white);
@@ -598,9 +598,6 @@ body {
 }
 
 /* Utility Classes */
-.space40px {
-  height: 40px;
-}
 .space24px {
   height: 24px;
 }
@@ -767,4 +764,113 @@ body {
   .hero-body .container.has-text-centered {
     margin-top: 80px;
   }
+}
+
+[data-aos] {
+  will-change: transform, opacity;
+}
+
+.fade-up-smooth {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-up-smooth.aos-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-aos-delay] {
+  transition-delay: calc(var(--aos-delay) * 1ms) !important;
+}
+
+@media (max-width: 768px) {
+  [data-aos] {
+    transition-duration: 0.6s !important;
+  }
+
+  .fade-up-smooth {
+    transform: translateY(20px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-aos] {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Smooth transitions for interactive elements */
+.button,
+a {
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Optimize image loading */
+img {
+  loading: lazy;
+}
+
+/* Countdown animation enhancement */
+#countdown li {
+  transition: all 0.3s ease;
+}
+
+#countdown li:hover {
+  transform: scale(1.05);
+}
+
+/* Preloader optimization */
+.preloader-wrapper {
+  transition: opacity 0.5s ease-out;
+}
+
+/* Hero content animation */
+.hero-body > * {
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger hero content animations */
+.hero-body .subtitle:first-child {
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}
+
+.hero-body .title {
+  animation-delay: 0.4s;
+  animation-fill-mode: both;
+}
+
+.hero-body .venue-time {
+  animation-delay: 0.6s;
+  animation-fill-mode: both;
+}
+
+#countdown {
+  animation-delay: 0.8s;
+  animation-fill-mode: both;
 }
