@@ -1208,12 +1208,6 @@ input[type='checkbox'] {
   animation: zoomIn 0.8s ease-out 0.9s both;
 }
 
-.divider {
-  text-align: center;
-  margin: 40px 0;
-  animation: fadeIn 1s ease-out 1.2s both;
-}
-
 .divider img {
   width: 150px;
   opacity: 0.6;
