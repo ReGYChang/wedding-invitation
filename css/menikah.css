@@ -76,6 +76,7 @@ body {
     var(--deep-charcoal) url('../image/hero2.jpg') no-repeat center center;
   background-attachment: fixed;
   background-size: cover;
+  background-position: 38%;
   color: var(--soft-white);
   min-height: 100vh;
   position: relative;
@@ -638,6 +639,12 @@ body {
   }
 }
 
+@media (max-width: 480px) {
+  #countdown {
+    margin-top: -45px;
+  }
+}
+
 .hero-body .container.has-text-centered {
   margin-top: -280px;
   margin-bottom: 2rem;
@@ -645,14 +652,14 @@ body {
 
 @media (max-width: 768px) {
   .hero-body .container.has-text-centered {
-    margin-top: 60px;
+    margin-top: -160px;
     margin-bottom: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .hero-body .container.has-text-centered {
-    margin-top: 80px;
+    margin-top: -50px;
   }
 }
 
