@@ -310,7 +310,7 @@
             >
               <strong>台北文華東方酒店</strong>
               <br />
-              台灣台北市松山區敦化北路158號
+              台北市松山區敦化北路158號
               <br />
               文華廳
               <br />
@@ -360,7 +360,7 @@
             <div class="corner-ornament bottom-right"></div>
 
             <h1>敬請回覆出席意願</h1>
-            <p class="subtitle">誠摯邀請您於 2025 年 10 月 15 日前回覆</p>
+            <p class="subtitle">誠摯邀請您於<br/> 2025 年 10 月 15 日前回覆</p>
 
             <div class="divider"></div>
 
@@ -418,28 +418,50 @@
                       min="1"
                       max="10"
                       value="1"
+                      onchange="updateMaxDietary()"
                     />
                   </div>
 
                   <div class="form-group">
-                    <label>飲食偏好 </label>
-                    <div class="dietary-preferences">
-                      <label class="checkbox-label">
-                        <input
-                          type="checkbox"
-                          name="dietary"
-                          value="vegetarian"
-                        />
-                        素食
-                      </label>
-                      <label class="checkbox-label">
-                        <input
-                          type="checkbox"
-                          name="dietary"
-                          value="carnivore"
-                        />
-                        葷食
-                      </label>
+                    <div class="dietary-section">
+                      <label>用餐人數分配 *</label>
+                      <div class="dietary-inputs">
+                        <div class="dietary-item">
+                          <label for="regularCount">葷：</label>
+                          <input
+                            type="number"
+                            id="regularCount"
+                            name="regularCount"
+                            min="0"
+                            max="1"
+                            value="1"
+                            onchange="validateDietaryCount()"
+                          />
+                        </div>
+                        <div class="dietary-item">
+                          <label for="vegetarianCount">素：</label>
+                          <input
+                            type="number"
+                            id="vegetarianCount"
+                            name="vegetarianCount"
+                            min="0"
+                            max="1"
+                            value="0"
+                            onchange="validateDietaryCount()"
+                          />
+                        </div>
+                      </div>
+                      <div class="total-info">
+                        <div class="total-row">
+                          <span>用餐總人數：</span>
+                          <span class="total-count" id="totalDietaryCount"
+                            >1</span
+                          >
+                        </div>
+                      </div>
+                      <div class="error-message" id="dietaryError">
+                        用餐人數總和必須等於出席人數
+                      </div>
                     </div>
                   </div>
 
@@ -449,7 +471,7 @@
                       id="allergies"
                       name="allergies"
                       rows="3"
-                      placeholder="如有任何特殊飲食需求，敬請告知(*´∀`)~♥"
+                      placeholder="如有任何特殊飲食需求，敬請告知&#10;(*´∀`)~♥"
                     ></textarea>
                   </div>
 
@@ -459,12 +481,14 @@
                       id="specialMessage"
                       name="specialMessage"
                       rows="3"
-                      placeholder="歡迎留言您的美好祝福 Σ>―(〃°ω°〃)♡→"
+                      placeholder="歡迎留言您的美好祝福&#10;Σ>―(〃°ω°〃)♡→"
                     ></textarea>
                   </div>
                 </div>
 
-                <button type="submit" class="submit-button">送出回覆</button>
+                <button type="submit" class="submit-button" id="submitBtn">
+                  送出回覆
+                </button>
               </form>
 
               <div id="successMessage" class="message">
@@ -595,25 +619,64 @@
       });
 
       function showForm() {
-        const button = document.querySelector('.rsvp-button');
-        const formContainer = document.getElementById('rsvpForm');
-
-        button.style.display = 'none';
-        formContainer.classList.add('active');
+        document.getElementById('rsvpForm').style.display = 'block';
+        document.querySelector('.rsvp-button').style.display = 'none';
       }
 
       function toggleGuestDetails() {
         const attending = document.querySelector(
           'input[name="attending"]:checked'
-        );
+        ).value;
         const guestDetails = document.getElementById('guestDetails');
 
-        if (attending && attending.value === 'yes') {
+        if (attending === 'yes') {
           guestDetails.style.display = 'block';
-          document.getElementById('guestCount').required = true;
         } else {
           guestDetails.style.display = 'none';
-          document.getElementById('guestCount').required = false;
+        }
+      }
+
+      function updateMaxDietary() {
+        const guestCount =
+          parseInt(document.getElementById('guestCount').value) || 1;
+        const vegetarianInput = document.getElementById('vegetarianCount');
+        const regularInput = document.getElementById('regularCount');
+
+        vegetarianInput.max = guestCount;
+        regularInput.max = guestCount;
+
+        vegetarianInput.value = 0;
+        regularInput.value = guestCount;
+
+        validateDietaryCount();
+      }
+
+      function validateDietaryCount() {
+        const guestCount =
+          parseInt(document.getElementById('guestCount').value) || 1;
+        const vegetarianCount =
+          parseInt(document.getElementById('vegetarianCount').value) || 0;
+        const regularCount =
+          parseInt(document.getElementById('regularCount').value) || 0;
+        const totalDietary = vegetarianCount + regularCount;
+
+        document.getElementById('totalDietaryCount').textContent = totalDietary;
+
+        const errorElement = document.getElementById('dietaryError');
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (totalDietary !== guestCount) {
+          errorElement.style.display = 'block';
+          submitBtn.disabled = true;
+
+          if (totalDietary > guestCount) {
+            errorElement.textContent = `用餐人數總和（${totalDietary}人）超過出席人數（${guestCount}人）`;
+          } else {
+            errorElement.textContent = `用餐人數總和（${totalDietary}人）少於出席人數（${guestCount}人）`;
+          }
+        } else {
+          errorElement.style.display = 'none';
+          submitBtn.disabled = false;
         }
       }
 
@@ -621,24 +684,28 @@
         event.preventDefault();
 
         const formData = new FormData(event.target);
-        const data = Object.fromEntries(formData);
+        const data = Object.fromEntries(formData.entries());
 
-        // Get dietary preferences
-        const dietaryPrefs = formData.getAll('dietary');
-        data.dietary = dietaryPrefs;
+        if (data.attending === 'yes') {
+          const guestCount = parseInt(data.guestCount);
+          const vegetarianCount = parseInt(data.vegetarianCount) || 0;
+          const regularCount = parseInt(data.regularCount) || 0;
 
-        console.log('RSVP Data:', data);
+          if (vegetarianCount + regularCount !== guestCount) {
+            alert('請確認用餐人數分配正確');
+            return;
+          }
+        }
 
-        // Show success message
-        const successMessage = document.getElementById('successMessage');
-        successMessage.classList.add('show');
+        console.log('表單資料：', data);
 
-        // Hide form after submission
-        event.target.style.display = 'none';
-
-        // In a real application, you would send this data to a server
-        // fetch('/api/rsvp', { method: 'POST', body: JSON.stringify(data) })
+        document.querySelector('form').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'block';
       }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        updateMaxDietary();
+      });
     </script>
   </body>
 </html>
