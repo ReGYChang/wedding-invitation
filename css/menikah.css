@@ -15,11 +15,6 @@
   --error-red: #ff6b6b;
   --muted-gray: #666666;
   --dark-gray: #3a3a3a;
-  --form-dark: #2a2a2a;
-  --form-darker: #1a1a1a;
-  --form-border: #444444;
-  --text-muted: #999999;
-  --text-light: #cccccc;
 }
 
 /* Base Styles - Mandarin Oriental Elegance */
@@ -83,15 +78,21 @@ body {
   background:
     linear-gradient(rgba(211, 205, 196, 0.15), rgba(167, 164, 156, 0.25)),
     var(--deep-charcoal) url('../image/hero2.jpg') no-repeat center center;
-  background-attachment: fixed;
   background-size: cover;
-  background-position: 38%;
+  background-position: 38% center;
   color: var(--soft-white);
   min-height: 100vh;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) and (hover: hover) {
+  .hero {
+    background-attachment: fixed;
+  }
 }
 
 .hero::before {
@@ -107,6 +108,7 @@ body {
     rgba(167, 164, 156, 0.2) 50%,
     rgba(1, 1, 1, 0.3) 100%
   );
+  z-index: 1;
 }
 
 .hero .hero-content {
@@ -125,6 +127,7 @@ body {
   margin-bottom: 2.5rem;
   text-shadow: 0 2px 20px rgba(1, 1, 1, 0.3);
   transform: rotate(-1deg);
+  will-change: transform;
 }
 
 .hero .subtitle {
@@ -149,6 +152,10 @@ body {
 @media (max-width: 768px) {
   .hero .venue-time {
     margin-top: 1.5rem;
+  }
+
+  .hero {
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -1255,21 +1262,6 @@ input[type='checkbox'] {
   margin: 20px 0;
 }
 
-.chinese-name {
-  font-size: 36px;
-  font-weight: 600;
-  color: var(--dark-gray);
-  letter-spacing: 8px;
-  margin-bottom: 10px;
-}
-
-.english-name {
-  font-size: 18px;
-  font-weight: 300;
-  color: var(--muted-gray);
-  letter-spacing: 2px;
-}
-
 .ampersand {
   position: absolute;
   left: 50%;
@@ -1337,10 +1329,6 @@ input[type='checkbox'] {
     display: block;
     margin: 20px 0;
     text-align: center;
-  }
-
-  .chinese-name {
-    font-size: 28px;
   }
 
   .invitation-text h1 {
