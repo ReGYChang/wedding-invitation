@@ -717,9 +717,27 @@ a {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Optimize image loading */
-img {
-  loading: lazy;
+.mandarin {
+  max-width: 100%;
+  max-height: 200px;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .mandarin {
+    max-width: 100%;
+    max-height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mandarin {
+    max-width: 100%;
+    max-height: 120px;
+  }
 }
 
 /* Countdown animation enhancement */
