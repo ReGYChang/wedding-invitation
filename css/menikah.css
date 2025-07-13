@@ -112,7 +112,7 @@ body {
   font-weight: 700;
   font-size: clamp(3rem, 8vw, 6rem);
   color: var(--soft-white);
-  margin-bottom: 1rem;
+  margin-bottom: 2.5rem;
   text-shadow: 0 2px 20px rgba(1, 1, 1, 0.3);
   transform: rotate(-1deg);
 }
@@ -132,7 +132,7 @@ body {
   font-size: clamp(1rem, 2.5vw, 1.25rem);
   color: var(--primary-warm);
   letter-spacing: 0.5px;
-  margin-top: 3rem;
+  margin-top: 5rem;
   margin-bottom: 0;
 }
 
@@ -585,6 +585,7 @@ body {
   padding: 0;
   margin: 20px 0;
   flex-wrap: wrap;
+  margin-top: -60px;
 }
 
 #countdown li {
@@ -638,7 +639,7 @@ body {
 }
 
 .hero-body .container.has-text-centered {
-  margin-top: -160px;
+  margin-top: -280px;
   margin-bottom: 2rem;
 }
 
