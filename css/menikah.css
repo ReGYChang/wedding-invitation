@@ -717,7 +717,7 @@ a {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.mandarin {
+.mandarin-logo {
   max-width: 100%;
   max-height: 200px;
   width: auto;
@@ -727,14 +727,14 @@ a {
 }
 
 @media (max-width: 768px) {
-  .mandarin {
+  .mandarin-logo {
     max-width: 100%;
     max-height: 150px;
   }
 }
 
 @media (max-width: 480px) {
-  .mandarin {
+  .mandarin-logo {
     max-width: 100%;
     max-height: 120px;
   }
@@ -1067,5 +1067,217 @@ input[type='checkbox'] {
 
   .dietary-preferences {
     grid-template-columns: 1fr;
+  }
+}
+
+.invitation-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 文華東方裝飾元素 */
+.mo-pattern {
+  position: absolute;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.mo-pattern-left {
+  left: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 200px;
+  height: 400px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 200'%3E%3Cpath d='M50 20 Q20 50 50 80 Q80 50 50 20' fill='%23b8860b' /%3E%3C/svg%3E")
+    repeat-y;
+}
+
+.mo-pattern-right {
+  right: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 200px;
+  height: 400px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 200'%3E%3Cpath d='M50 20 Q20 50 50 80 Q80 50 50 20' fill='%23b8860b' /%3E%3C/svg%3E")
+    repeat-y;
+}
+
+.container {
+  max-width: 900px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.mandarin-logo {
+  text-align: center;
+  margin-bottom: 50px;
+  animation: fadeIn 1s ease-out;
+}
+
+.mandarin-logo img {
+  width: 180px;
+  height: auto;
+}
+
+.invitation-text {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeIn 1s ease-out 0.3s both;
+}
+
+.invitation-text h1 {
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: 8px;
+  color: #b8860b;
+  margin-bottom: 20px;
+}
+
+.invitation-text p {
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.couple-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 80px;
+  margin-bottom: 60px;
+  animation: fadeIn 1s ease-out 0.6s both;
+}
+
+.groom-side,
+.bride-side {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.side-decoration {
+  position: absolute;
+  top: -20px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #b8860b, transparent);
+}
+
+.parent-names {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+.couple-name {
+  margin: 20px 0;
+}
+
+.chinese-name {
+  font-size: 36px;
+  font-weight: 600;
+  color: #3a3a3a;
+  letter-spacing: 8px;
+  margin-bottom: 10px;
+}
+
+.english-name {
+  font-size: 18px;
+  font-weight: 300;
+  color: #666;
+  letter-spacing: 2px;
+}
+
+.ampersand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: #b8860b;
+  font-weight: 300;
+  animation: zoomIn 0.8s ease-out 0.9s both;
+}
+
+.divider {
+  text-align: center;
+  margin: 40px 0;
+  animation: fadeIn 1s ease-out 1.2s both;
+}
+
+.divider img {
+  width: 150px;
+  opacity: 0.6;
+}
+
+.closing-text {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  animation: fadeIn 1s ease-out 1.5s both;
+}
+
+.closing-text p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #666;
+  letter-spacing: 1px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .couple-section {
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 40px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .ampersand {
+    position: sticky;
+    transform: none;
+    display: block;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .chinese-name {
+    font-size: 28px;
+  }
+
+  .invitation-text h1 {
+    font-size: 24px;
+    letter-spacing: 4px;
   }
 }
