@@ -384,6 +384,42 @@
                 </div>
 
                 <div class="form-group">
+                  <label>是否願領紙本喜帖？</label>
+                  <div class="radio-group">
+                    <label class="radio-label">
+                      <input
+                        type="radio"
+                        id="receiveInvitation"
+                        name="entry.753027985"
+                        value="是"
+                        onchange="toggleAddressField()"
+                      />
+                      願意領取
+                    </label>
+                    <label class="radio-label">
+                      <input
+                        type="radio"
+                        id="noInvitation"
+                        name="entry.753027985"
+                        value="否"
+                        checked
+                        onchange="toggleAddressField()"
+                      />
+                      沒有關係
+                    </label>
+                  </div>
+                </div>
+
+                <div id="addressField" class="form-group" style="display: none">
+                  <label for="address">收件地址</label>
+                  <input
+                    type="text"
+                    id="address"
+                    name="entry.1550140398"
+                  />
+                </div>
+
+                <div class="form-group">
                   <label>是否能蒞臨參與？ *</label>
                   <div class="radio-group">
                     <label class="radio-label">
@@ -404,7 +440,6 @@
                         name="entry.412065303"
                         value="no"
                         required
-                        onchange="toggleGuestDetails()"
                       />
                       無法出席，深感遺憾
                     </label>
@@ -593,6 +628,15 @@
       });
 
       // --- RSVP FORM LOGIC ---
+
+      function toggleAddressField() {
+        var addressField = document.getElementById('addressField');
+        if (document.getElementById('receiveInvitation').checked) {
+          addressField.style.display = 'block';
+        } else {
+          addressField.style.display = 'none';
+        }
+      }
 
       function showForm() {
         document.getElementById('rsvpForm').style.display = 'block';
