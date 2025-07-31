@@ -376,72 +376,82 @@
                   </div>
                 </div>
 
-                <div class="form-row">
+                <!-- Fields to be toggled -->
+                <div id="attending-fields">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="email">電子郵件</label>
+                      <input type="email" id="email" name="entry.1641189894" />
+                    </div>
+                  </div>
+
                   <div class="form-group">
-                    <label for="email">電子郵件</label>
-                    <input type="email" id="email" name="entry.1641189894" />
+                    <label>是否願領紙本喜帖？</label>
+                    <div class="radio-group">
+                      <label class="radio-label">
+                        <input
+                          type="radio"
+                          id="receiveInvitation"
+                          name="entry.753027985"
+                          value="是"
+                          onchange="toggleAddressField()"
+                        />
+                        願意領取
+                      </label>
+                      <label class="radio-label">
+                        <input
+                          type="radio"
+                          id="noInvitation"
+                          name="entry.753027985"
+                          value="否"
+                          checked
+                          onchange="toggleAddressField()"
+                        />
+                        沒有關係
+                      </label>
+                    </div>
+                  </div>
+
+                  <div
+                    id="addressField"
+                    class="form-group"
+                    style="display: none"
+                  >
+                    <label for="address">收件地址</label>
+                    <input type="text" id="address" name="entry.1550140398" />
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label>是否願領紙本喜帖？</label>
-                  <div class="radio-group">
-                    <label class="radio-label">
-                      <input
-                        type="radio"
-                        id="receiveInvitation"
-                        name="entry.753027985"
-                        value="是"
-                        onchange="toggleAddressField()"
-                      />
-                      願意領取
-                    </label>
-                    <label class="radio-label">
-                      <input
-                        type="radio"
-                        id="noInvitation"
-                        name="entry.753027985"
-                        value="否"
-                        checked
-                        onchange="toggleAddressField()"
-                      />
-                      沒有關係
-                    </label>
-                  </div>
-                </div>
-
-                <div id="addressField" class="form-group" style="display: none">
-                  <label for="address">收件地址</label>
-                  <input type="text" id="address" name="entry.1550140398" />
-                </div>
-
+                <!-- Attendance Toggle -->
                 <div class="form-group">
                   <label>是否能蒞臨參與？ *</label>
                   <div class="radio-group">
                     <label class="radio-label">
                       <input
                         type="radio"
-                        id="attending"
+                        id="attendingYes"
                         name="entry.412065303"
                         value="yes"
                         required
-                        onchange="toggleGuestDetails()"
+                        onchange="handleAttendanceChange()"
                       />
                       欣然出席
                     </label>
                     <label class="radio-label">
                       <input
                         type="radio"
-                        id="attending"
+                        id="attendingNo"
                         name="entry.412065303"
                         value="no"
                         required
+                        onchange="handleAttendanceChange()"
                       />
-                      無法出席，深感遺憾
+                      無法出席
                     </label>
                   </div>
                 </div>
 
+                <!-- Guest Details (for attending guests) -->
                 <div id="guestDetails" style="display: none">
                   <div class="form-group">
                     <label for="guestCount">出席人數 *</label>
@@ -449,10 +459,11 @@
                       type="number"
                       id="guestCount"
                       name="guestCount"
-                      min="1"
+                      min="0"
                       max="10"
                       value="1"
                       onchange="updateMaxDietary()"
+                      required
                     />
                   </div>
 
@@ -505,21 +516,25 @@
                       id="allergies"
                       name="entry.1414163675"
                       rows="3"
-                      placeholder="如有任何特殊飲食需求或需要兒童座椅，敬請告知
-(*´∀`)~♥"
+                      placeholder="如有任何特殊飲食需求或需要兒童座椅，敬請告知 (*´∀`)~♥"
                     ></textarea>
                   </div>
+                </div>
 
-                  <div class="form-group">
-                    <label for="specialMessage">給新人的祝福（選填）</label>
-                    <textarea
-                      id="specialMessage"
-                      name="entry.164157053"
-                      rows="3"
+                <!-- Special Message (now independent) -->
+                <div
+                  class="form-group"
+                  id="specialMessageGroup"
+                  style="display: none"
+                >
+                  <label for="specialMessage">給新人的祝福</label>
+                  <textarea
+                    id="specialMessage"
+                    name="entry.164157053"
+                      rows="4"
                       placeholder="歡迎留言您的美好祝福
 Σ>―(〃°ω°〃)♡→"
-                    ></textarea>
-                  </div>
+                  ></textarea>
                 </div>
 
                 <button type="submit" class="submit-button" id="submitBtn">
@@ -639,13 +654,36 @@
         document.querySelector('.rsvp-button').style.display = 'none';
       }
 
-      function toggleGuestDetails() {
-        const attending = document.getElementById('attending').value;
+      function handleAttendanceChange() {
+        const isAttending = document.getElementById('attendingYes').checked;
+        const isNotAttending = document.getElementById('attendingNo').checked;
+
+        const attendingFields = document.getElementById('attending-fields');
         const guestDetails = document.getElementById('guestDetails');
-        if (attending === 'yes') {
+        const specialMessageGroup = document.getElementById(
+          'specialMessageGroup'
+        );
+        const specialMessageTextarea =
+          document.getElementById('specialMessage');
+
+        // Inputs that have validation
+        const guestCountInput = document.getElementById('guestCount');
+
+        if (isAttending) {
+          attendingFields.style.display = 'block';
           guestDetails.style.display = 'block';
-        } else {
+          specialMessageGroup.style.display = 'block';
+          specialMessageTextarea.placeholder =
+            '歡迎留言您的美好祝福\nΣ>―(〃°ω°〃)♡→';
+          guestCountInput.required = true;
+          toggleAddressField();
+        } else if (isNotAttending) {
+          // attendingFields.style.display = 'none';
           guestDetails.style.display = 'none';
+          specialMessageGroup.style.display = 'block';
+          specialMessageTextarea.placeholder =
+            '很遺憾您無法參加，但您的祝福對我們同樣重要，歡迎在此留下您的祝福！';
+          guestCountInput.required = false;
         }
       }
 
@@ -704,53 +742,60 @@
         const errorMessage = document.getElementById('errorMessage');
 
         // --- Validation ---
-        if (document.getElementById('attending').value === 'yes') {
+        if (document.getElementById('attendingYes').checked) {
           const guestCount =
             parseInt(document.getElementById('guestCount').value) || 1;
           const vegetarianCount =
             parseInt(document.getElementById('vegetarianCount').value) || 0;
           const regularCount =
             parseInt(document.getElementById('regularCount').value) || 0;
+
           if (vegetarianCount + regularCount !== guestCount) {
-            alert(
-              '請確認用餐人數分配正確 (The sum of meal types must equal the number of guests).'
-            );
+            // This check is redundant if the button is properly disabled, but serves as a final safeguard.
+            document.getElementById('dietaryError').style.display = 'block';
             return;
           }
         }
 
         // --- Submission ---
-        const raw = new FormData(event.target);
-        const params = new URLSearchParams();
-
-        raw.forEach((v, k) => params.append(k, v));
-
-        // 2️⃣ add Google housekeeping fields
-        params.append('fvv', '1');
-        params.append('draftResponse', '[]');
-        params.append('pageHistory', '0');
-        params.append('fbzx', Date.now().toString());
-
         submitBtn.disabled = true;
         submitBtn.textContent = '傳送中...';
         errorMessage.style.display = 'none';
 
+        const formData = new FormData(form);
+
+        // If not attending, clear irrelevant fields to avoid sending empty/zero values
+        if (document.getElementById('attendingNo').checked) {
+          formData.set('entry.1876515129', '0'); // Regular Count
+          formData.set('entry.1942737676', '0'); // Vegetarian Count
+          formData.set('entry.1414163675', ''); // Notes
+        }
+
         try {
+          // We use 'no-cors' mode because Google Forms doesn't allow cross-origin requests.
+          // This means we can't read the response, but the form submission will still go through.
           await fetch(SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: params.toString(),
+            body: new URLSearchParams(formData),
           });
 
-          event.target.style.display = 'none';
-          document.getElementById('successMessage').style.display = 'block';
-          document.getElementById('errorMessage').style.display = 'none';
-        } catch (e) {
-          console.error(e);
-          document.getElementById('errorMessage').style.display = 'block';
-          btn.disabled = false;
-          btn.textContent = '送出回覆';
+          // If the fetch doesn't throw an error, we assume it was successful.
+          form.style.display = 'none';
+          successMessage.style.display = 'block';
+          errorMessage.style.display = 'none';
+
+          // Update success message based on attendance
+          if (document.getElementById('attendingNo').checked) {
+            successMessage.textContent = '感謝您的回覆與祝福！';
+          } else {
+            successMessage.textContent = '感謝您的回覆，期待與您共襄盛舉！';
+          }
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          errorMessage.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.textContent = '送出回覆';
         }
       }
     </script>
